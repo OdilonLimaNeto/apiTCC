@@ -9,7 +9,7 @@ export class CreateAtividade1615516892016 implements MigrationInterface {
                 columns: [
                     {
                         name: 'id',
-                        type: 'varchar',
+                        type: 'int',
                         isPrimary: true,
                         isUnique: true
                     },
@@ -57,16 +57,68 @@ export class CreateAtividade1615516892016 implements MigrationInterface {
                     },
 
                     {
+                        name: 'responsavel_atividade',
+                        type: 'varchar'
+                    },
+
+                    {
+                        name: 'dizimo_atividade',
+                        type: 'decimal'
+                    },
+
+                    {
+                        name: 'oferta_atividade',
+                        type: 'decimal'
+                    },
+
+                    {
+                        name: 'numero_conciliacao_atividade',
+                        type: 'int'
+                    },
+
+                    {
+                        name: 'numero_decisao_atividade',
+                        type: 'int'
+                    },
+
+
+                    {
+                        name: 'nome_preleitor_atividade',
+                        type: 'varchar'
+                    },
+
+                    {
+                        name: 'observacao_atividade',
+                        type: 'varchar'
+                    },
+
+                    {
                         name: 'created_at',
                         type: 'timestamp',
                         default: 'now()'
                     }
+                ],
+
+                foreignKeys: [
+                    {
+                        name: 'FKTipo_atividade',
+                        referencedTableName: 'tipo_atividade',
+                        referencedColumnNames: ['id'],
+                        columnNames: ['id_tipo_atividade']
+                    },
+
+                    {
+                        name: 'FKIgreja',
+                        referencedTableName: 'igreja',
+                        referencedColumnNames: ['id'],
+                        columnNames: ['id_igreja']
+                    },
                 ]
             })
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable('atividade');
     }
-
 }

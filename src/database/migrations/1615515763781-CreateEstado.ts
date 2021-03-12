@@ -9,7 +9,7 @@ export class CreateEstado1615515763781 implements MigrationInterface {
                 columns: [
                     {
                         name: 'id',
-                        type: 'varchar',
+                        type: 'int',
                         isUnique: true,
                         isPrimary: true
                     },

@@ -9,7 +9,7 @@ export class CreatePais1615516235419 implements MigrationInterface {
                 columns: [
                     {
                         name: 'id',
-                        type: 'varchar',
+                        type: 'int',
                         isUnique: true,
                         isPrimary: true
                     }, 

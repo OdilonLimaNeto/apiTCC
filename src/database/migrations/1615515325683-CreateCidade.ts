@@ -9,7 +9,7 @@ export class CreateCidade1615515325683 implements MigrationInterface {
                 columns: [
                     {
                         name: 'id',
-                        type: 'varchar',
+                        type: 'int',
                         isUnique: true,
                         isPrimary: true
                     },

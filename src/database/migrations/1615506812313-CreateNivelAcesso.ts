@@ -9,7 +9,7 @@ export class CreateNivelAcesso1615506812313 implements MigrationInterface {
                 columns: [
                     {
                         name: 'id',
-                        type: 'varchar',
+                        type: 'int',
                         isUnique: true,
                         isPrimary: true,
                     },

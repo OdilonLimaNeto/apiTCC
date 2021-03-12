@@ -9,7 +9,7 @@ export class CreateTipoAtividade1615516522480 implements MigrationInterface {
                 columns: [
                     {
                         name: 'id',
-                        type: 'varchar',
+                        type: 'int',
                         isPrimary: true,
                         isUnique: true
                     },

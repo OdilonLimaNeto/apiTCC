@@ -9,7 +9,7 @@ export class CreateCargo1615513143184 implements MigrationInterface {
                 columns: [
                     {
                         name: 'id',
-                        type: 'varchar',
+                        type: 'int',
                         isUnique: true,
                         isPrimary: true
                     },
@@ -38,6 +38,7 @@ export class CreateCargo1615513143184 implements MigrationInterface {
                 ],
 
                 foreignKeys: [
+                    
                     {
                         name: 'FKNivelAcesso',
                         referencedTableName: 'nivel_acesso',

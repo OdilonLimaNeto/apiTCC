@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateUsuario1615511845956 implements MigrationInterface {
+export class CreateIgreja1615518879441 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'usuario',
+                name: 'igreja',
                 columns: [
 
                     {
@@ -16,15 +16,13 @@ export class CreateUsuario1615511845956 implements MigrationInterface {
                     },
 
                     {
-                        name: 'primeiro_nome',
+                        name: 'nome',
                         type: 'varchar',
-
                     },
 
                     {
-                        name: 'segundo_nome',
+                        name: 'cnpj',
                         type: 'varchar',
-
                     },
 
                     {
@@ -33,19 +31,18 @@ export class CreateUsuario1615511845956 implements MigrationInterface {
                     },
 
                     {
-                        name: 'senha',
-                        type: 'varchar',
-                    },
-
-                    {
-                        name: 'cpf',
-                        type: 'varchar',
-                    },
-
-                    {
-                        name: 'id_cargo',
+                        name: 'tipo_igreja',
                         type: 'int',
-                        isUnique: true,
+                    },
+
+                    {
+                        name: 'matriz_igreja',
+                        type: 'int',
+                    },
+
+                    {
+                        name: 'quantidade_membro_igreja',
+                        type: 'int',
                     },
 
                     {
@@ -64,19 +61,23 @@ export class CreateUsuario1615511845956 implements MigrationInterface {
                     },
 
                     {
-                        name: 'id_cidade',
-                        type: 'int',
-                        isUnique: true,
-                    },
-
-                    {
-                        name: 'numero_residencia',
+                        name: 'numero_residencia_igreja',
                         type: 'int',
                     },
 
                     {
                         name: 'complemento',
                         type: 'varchar',
+                    },
+
+                    {
+                        name: 'id_cidade_igreja',
+                        type: 'int',
+                    },
+
+                    {
+                        name: 'id_usuario',
+                        type: 'int',
                     },
 
                     {
@@ -88,25 +89,24 @@ export class CreateUsuario1615511845956 implements MigrationInterface {
 
                 foreignKeys: [
                     {
-                        name: 'FKCargo',
-                        referencedTableName: 'cargo',
+                        name: 'FKUsuario',
+                        referencedTableName: 'usuario',
                         referencedColumnNames: ['id'],
-                        columnNames: ['id_cargo']
+                        columnNames: ['id_usuario']
                     },
 
                     {
-                        name: 'FKCidade',
+                        name: 'FKCidadeIgreja',
                         referencedTableName: 'cidade',
                         referencedColumnNames: ['id'],
-                        columnNames: ['id_cidade']
+                        columnNames: ['id_cidade_igreja']
                     }
                 ]
             })
         );
     }
 
-
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('usuario');
-    }
+        await queryRunner.dropTable('igreja');
+    };
 }
