@@ -35,12 +35,23 @@ export class CreateCargo1615513143184 implements MigrationInterface {
                         type: 'timestamp',
                         default: 'now()'
                     }
+                ],
+
+                foreignKeys: [
+                    {
+                        name: 'FKNivelAcesso',
+                        referencedTableName: 'nivel_acesso',
+                        referencedColumnNames: ['id'],
+                        columnNames: ['id_nivel_acesso']
+
+                    },
                 ]
             })
         )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable('cargo');
     }
 
 }
