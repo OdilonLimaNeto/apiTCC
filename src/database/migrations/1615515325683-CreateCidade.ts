@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateCargo1615513143184 implements MigrationInterface {
+export class CreateCidade1615515325683 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'cargo',
+                name: 'cidade',
                 columns: [
                     {
                         name: 'id',
@@ -14,23 +14,23 @@ export class CreateCargo1615513143184 implements MigrationInterface {
                         isPrimary: true
                     },
 
-                    {
-                        name: 'nome',
-                        type: 'varchar',
-                    },
+                     {
+                         name: 'nome',
+                         type: 'varchar',
+                     },
 
-                    {
-                        name: 'descricao',
-                        type: 'varchar'
-                    },
+                     {
+                         name: 'descricao',
+                         type: 'varchar',
+                     },
 
-                    {
-                        name: 'id_nivel_acesso',
-                        type: 'int',
-                        isUnique: true
-                    },
+                     {
+                         name: 'id_estado',
+                         type: 'int',
+                         isUnique: true
+                     },
 
-                    {
+                     {
                         name: 'created_at',
                         type: 'timestamp',
                         default: 'now()'
@@ -39,18 +39,17 @@ export class CreateCargo1615513143184 implements MigrationInterface {
 
                 foreignKeys: [
                     {
-                        name: 'FKNivelAcesso',
-                        referencedTableName: 'nivel_acesso',
+                        name: 'FKEstado',
+                        referencedTableName: 'estado',
                         referencedColumnNames: ['id'],
-                        columnNames: ['id_nivel_acesso']
-
-                    },
+                        columnNames: ['id_estado']
+                    }
                 ]
             })
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('cargo');
+        await queryRunner.dropTable('cidade');
     }
 }

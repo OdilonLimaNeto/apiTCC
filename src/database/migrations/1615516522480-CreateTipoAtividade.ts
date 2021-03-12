@@ -1,33 +1,37 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateCargo1615513143184 implements MigrationInterface {
+export class CreateTipoAtividade1615516522480 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'cargo',
+                name: 'tipo_atividade',
                 columns: [
                     {
                         name: 'id',
                         type: 'varchar',
-                        isUnique: true,
-                        isPrimary: true
+                        isPrimary: true,
+                        isUnique: true
                     },
 
                     {
                         name: 'nome',
-                        type: 'varchar',
-                    },
-
-                    {
-                        name: 'descricao',
                         type: 'varchar'
                     },
 
                     {
-                        name: 'id_nivel_acesso',
+                        name: 'modalidade',
+                        type: 'varchar',
+                    },
+
+                    {
+                        name: 'gera_arrecadacao_atividade',
                         type: 'int',
                         isUnique: true
+                    },
+                    {
+                        name: 'descricao',
+                        type: 'varchar'
                     },
 
                     {
@@ -35,22 +39,12 @@ export class CreateCargo1615513143184 implements MigrationInterface {
                         type: 'timestamp',
                         default: 'now()'
                     }
-                ],
-
-                foreignKeys: [
-                    {
-                        name: 'FKNivelAcesso',
-                        referencedTableName: 'nivel_acesso',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['id_nivel_acesso']
-
-                    },
                 ]
             })
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('cargo');
+        await queryRunner.dropTable('tipo_atividade')
     }
 }

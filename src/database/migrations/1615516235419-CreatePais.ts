@@ -1,37 +1,40 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateNivelAcesso1615506812313 implements MigrationInterface {
+export class CreatePais1615516235419 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'nivel_acesso',
+                name: 'pais',
                 columns: [
                     {
                         name: 'id',
                         type: 'varchar',
                         isUnique: true,
-                        isPrimary: true,
-                    },
+                        isPrimary: true
+                    }, 
+                    
                     {
-                        name: 'titulo_acesso',
+                        name: 'nome',
                         type: 'varchar',
                     },
+
                     {
-                        name: 'tipo_acesso',
-                        type: 'int'
+                        name: 'descricao',
+                        type: 'varchar'
                     },
+
                     {
                         name: 'created_at',
                         type: 'timestamp',
-                        default: 'now()',
-                    },
-                ],
+                        default: 'now()'
+                    }
+                ]
             })
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('nivel_acesso');
+        await queryRunner.dropTable('pais');
     }
 }

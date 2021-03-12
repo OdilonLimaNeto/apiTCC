@@ -44,7 +44,7 @@ export class CreateUsuario1615511845956 implements MigrationInterface {
 
                     {
                         name: 'id_cargo',
-                        type: 'varchar',
+                        type: 'int',
                         isUnique: true,
                     },
 
@@ -65,7 +65,7 @@ export class CreateUsuario1615511845956 implements MigrationInterface {
 
                     {
                         name: 'id_cidade',
-                        type: 'varchar',
+                        type: 'int',
                         isUnique: true,
                     },
 
@@ -109,5 +109,4 @@ export class CreateUsuario1615511845956 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('usuario');
     }
-
 }
