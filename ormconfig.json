@@ -1,13 +1,13 @@
 {
-    "type": "mysql",
+    "type": "postgres",
     "host": "localhost",
-    "port": 3306,
-    "username": "root",
-    "password": "",
-    "database": "testeDB",
-    "entities": ["./src/database/migrations/*.ts"],
+    "port": 5432,
+    "username": "postgres",
+    "password": "yourchurch",
+    "database": "database",
+    "entities": ["./src/models/*.ts"],
     "migrations": ["./src/database/migrations/**.ts"],
     "cli": {
         "migrationsDir": "./src/database/migrations"
     }
- }
+}
