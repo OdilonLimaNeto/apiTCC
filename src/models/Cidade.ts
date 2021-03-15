@@ -1,5 +1,7 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Estado } from "./Estado";
+import { Igreja } from "./Igreja";
+import { Usuario } from "./Usuario";
 
 
 @Entity('cidade')
@@ -16,6 +18,12 @@ class Cidade {
 
     @ManyToOne(type => Estado, cidades => Cidade)
     estado: Estado;
+
+    @OneToMany(type => Igreja, cidade => Cidade)
+    igrejas: Igreja[];
+
+    @OneToMany(type => Usuario, cidade => Cidade)
+    usuarios: Usuario[];
 
 };
 

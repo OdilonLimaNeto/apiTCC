@@ -1,5 +1,7 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Cargo } from "./Cargo";
+import { Cidade } from "./Cidade";
+import { Igreja } from "./Igreja";
 
 
 @Entity('usuario')
@@ -37,6 +39,14 @@ class Usuario {
 
     @CreateDateColumn()
     created_at: Date;
+
+    @OneToOne(type => Igreja, usuario => Usuario)
+    igreja: Igreja;
+
+    @ManyToOne(type => Cidade, usuarios => Usuario)
+    cidade: Cidade;
+
+
 }
 
 export { Usuario };
