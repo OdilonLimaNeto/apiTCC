@@ -1,11 +1,12 @@
-import { Column, CreateDateColumn, Double, Entity, ManyToOne, PrimaryGeneratedColumn, Timestamp } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Igreja } from "./Igreja";
 import { TipoAtividade } from "./TipoAtividade";
 
 @Entity('atividade')
 class Atividade {
 
-    @PrimaryGeneratedColumn('uuid')
-    readonly id: string;
+    @PrimaryGeneratedColumn()
+    readonly id: number;
 
     @Column()
     nameActivity: string;
@@ -54,6 +55,9 @@ class Atividade {
 
     @ManyToOne(type => TipoAtividade, atividades => Atividade)
     tipoAtividade: TipoAtividade;
+
+    @ManyToOne(type => Igreja, atividades => Atividade)
+    igreja: Igreja;
 
 };
 

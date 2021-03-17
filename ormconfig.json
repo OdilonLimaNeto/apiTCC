@@ -1,10 +1,10 @@
 {
-    "type": "postgres",
-    "host": "localhost",
-    "port": 5432,
-    "username": "postgres",
-    "password": "yourchurch",
-    "database": "database",
+    "type": "mysql",
+    "host": "172.106.0.110",
+    "port": 3306,
+    "username": "yourchurchtcc",
+    "password": "@yourchurchtcc123",
+    "database": "yourchurch",
     "entities": ["./src/models/*.ts"],
     "migrations": ["./src/database/migrations/**.ts"],
     "cli": {

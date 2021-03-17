@@ -45,8 +45,6 @@ class Usuario {
 
     @ManyToOne(type => Cidade, usuarios => Usuario)
     cidade: Cidade;
-
-
-}
+};
 
 export { Usuario };

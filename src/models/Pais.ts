@@ -1,12 +1,12 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Estado } from "./Estado";
 
 
 @Entity('pais')
 class Pais {
 
-    @PrimaryGeneratedColumn('uuid')
-    readonly id: string;
+    @PrimaryGeneratedColumn()
+    readonly id: number;
 
     @Column()
     name: string;

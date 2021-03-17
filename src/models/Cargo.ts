@@ -5,8 +5,8 @@ import { Usuario } from "./Usuario";
 @Entity('cargo')
 class Cargo {
 
-    @PrimaryGeneratedColumn('uuid')
-    readonly id: string;
+    @PrimaryGeneratedColumn()
+    readonly id: number;
     
     @Column()
     name: string;

@@ -4,8 +4,8 @@ import { Cargo } from "./Cargo";
 @Entity('nivel_acesso')
 class NivelAcesso {
 
-    @PrimaryGeneratedColumn('uuid')
-    readonly id: string;
+    @PrimaryGeneratedColumn()
+    readonly id: number;
 
     @Column()
     titleAcess: string;
@@ -15,8 +15,6 @@ class NivelAcesso {
 
     @OneToMany(type => Cargo, nivelAcesso => nivelAcesso)
     cargos: Cargo[];
-
-    
 };
 
 

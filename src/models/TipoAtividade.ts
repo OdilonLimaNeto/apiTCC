@@ -5,8 +5,8 @@ import { Atividade } from "./Atividade";
 @Entity('tipo_atividade')
 class TipoAtividade {
 
-    @PrimaryGeneratedColumn('uuid')
-    readonly id: string;
+    @PrimaryGeneratedColumn()
+    readonly id: number;
 
     @Column()
     name: string;

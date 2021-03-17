@@ -1,12 +1,13 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Atividade } from "./Atividade";
 import { Cidade } from "./Cidade";
 import { Usuario } from "./Usuario";
 
 @Entity('igreja')
 class Igreja {
 
-    @PrimaryGeneratedColumn('uuid')
-    readonly id: string;
+    @PrimaryGeneratedColumn()
+    readonly id: number;
 
     @Column()
     name: string;
@@ -38,6 +39,9 @@ class Igreja {
     @OneToOne(type => Usuario, igreja => Igreja)
     @JoinColumn()
     usuario: Usuario;
+
+    @OneToMany(type => Atividade, igreja => Igreja)
+    atividades: Atividade[];
 
 };
 
