@@ -1,12 +1,12 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Atividade } from "./Atividade";
+// import { Atividade } from "./Atividade";
 
 
 @Entity('tipo_atividade')
 class TipoAtividade {
 
-    @PrimaryGeneratedColumn()
-    readonly id: number;
+    @PrimaryGeneratedColumn('uuid')
+    readonly id: string;
 
     @Column()
     name: string;
@@ -23,8 +23,8 @@ class TipoAtividade {
     @CreateDateColumn()
     createdAt: Date;
 
-    @OneToMany(type => Atividade, tipoAtividade => tipoAtividade)
-    atividades: Atividade[];
+    // @OneToMany(type => Atividade, tipoAtividade => tipoAtividade)
+    // atividades: Atividade[];
 
 };
 
