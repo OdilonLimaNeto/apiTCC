@@ -5,8 +5,8 @@ import { Estado } from "./Estado";
 @Entity('pais')
 class Pais {
 
-    @PrimaryGeneratedColumn()
-    readonly id: number;
+    @PrimaryGeneratedColumn('uuid')
+    readonly id: string;
 
     @Column()
     name: string;
