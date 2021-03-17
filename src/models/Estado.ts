@@ -3,7 +3,6 @@ import { Cidade } from "./Cidade";
 import { Pais } from "./Pais";
 
 
-
 @Entity('estado')
 class Estado {
 

@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-// import { Cargo } from "./Cargo";
+import { Cargo } from "./Cargo";
 
 @Entity('nivel_acesso')
 class NivelAcesso {
@@ -13,8 +13,8 @@ class NivelAcesso {
     @CreateDateColumn()
     created_at: Date;
 
-    // @OneToMany(type => Cargo, nivelAcesso => nivelAcesso)
-    // cargos: Cargo[];
+    @OneToMany(type => Cargo, nivelAcesso => nivelAcesso)
+    cargos: Cargo[];
 };
 
 
