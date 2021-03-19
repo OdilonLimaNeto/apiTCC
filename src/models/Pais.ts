@@ -14,7 +14,7 @@ class Pais {
     @CreateDateColumn()
     createdAt: Date;
 
-    @OneToMany(type => Estado, pais => Pais)
+    @OneToMany(() => Estado, pais => pais.pais)
     estados: Estado[];
 };
 

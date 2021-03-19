@@ -16,13 +16,13 @@ class Cidade {
     @CreateDateColumn()
     createdAt: Date;
 
-    @ManyToOne(type => Estado, cidades => Cidade)
+    @ManyToOne(() => Estado, estado => estado.cidades)
     estado: Estado;
 
-    @OneToMany(type => Igreja, cidade => Cidade)
+    @OneToMany(() => Igreja, igreja => igreja.cidade)
     igrejas: Igreja[];
 
-    @OneToMany(type => Usuario, cidade => Cidade)
+    @OneToMany(() => Usuario, usuario => usuario.cidade)
     usuarios: Usuario[];
 
 };

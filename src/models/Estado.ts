@@ -18,10 +18,10 @@ class Estado {
     @CreateDateColumn()
     createdAt: Date;
 
-     @ManyToOne( type => Pais, estados => Estado)
+     @ManyToOne(() => Pais, pais => pais.estados)
      pais: Pais;
 
-    @OneToMany(type => Cidade, estado => Estado)
+    @OneToMany(() => Cidade, cidade => cidade.estado)
     cidades: Cidade[];
 };
 

@@ -23,7 +23,7 @@ class TipoAtividade {
     @CreateDateColumn()
     createdAt: Date;
 
-    @OneToMany(type => Atividade, tipoAtividade => tipoAtividade)
+    @OneToMany(() => Atividade, atividade => atividade.tipoAtividade)
     atividades: Atividade[];
 
 };

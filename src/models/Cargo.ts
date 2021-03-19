@@ -14,10 +14,10 @@ class Cargo {
     @Column()
     description: string;
 
-    @OneToMany(type => Usuario, cargo => Cargo)
+    @OneToMany(() => Usuario, usuario => usuario.cargo)
     usuarios: Usuario[];
 
-    @ManyToOne(type => NivelAcesso, cargos => Cargo)
+    @ManyToOne(() => NivelAcesso, nivelacesso => nivelacesso.cargos)
     nivelAcesso: NivelAcesso;
 
 };

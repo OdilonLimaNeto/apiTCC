@@ -33,14 +33,14 @@ class Igreja {
     @CreateDateColumn()
     createdAt: Date;
 
-    @ManyToOne(type => Cidade, igrejas => Igreja)
+    @ManyToOne(() => Cidade, cidade => cidade.igrejas)
     cidade: Cidade;
 
-    @OneToOne(type => Usuario, igreja => Igreja)
+    @OneToOne(() => Usuario, igreja => Igreja)
     @JoinColumn()
     usuario: Usuario;
 
-    @OneToMany(type => Atividade, igreja => Igreja)
+    @OneToMany(() => Atividade, atividade => atividade.igreja)
     atividades: Atividade[];
 
 };

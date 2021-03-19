@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Cargo } from "./Cargo";
 import { Cidade } from "./Cidade";
 import { Igreja } from "./Igreja";
@@ -28,7 +28,7 @@ class Usuario {
     @Column()
     bairro: string;
 
-    @ManyToOne(type => Cargo, usuarios => Usuario)
+    @ManyToOne(() => Cargo, cargo => cargo.usuarios)
     cargo: Cargo;
 
     @Column()
@@ -40,10 +40,10 @@ class Usuario {
     @CreateDateColumn()
     created_at: Date;
 
-    @OneToOne(type => Igreja, usuario => Usuario)
+    @OneToOne(() => Igreja, usuario => Usuario)
     igreja: Igreja;
 
-    @ManyToOne(type => Cidade, usuarios => Usuario)
+    @ManyToOne(() => Cidade, cidade => cidade.usuarios)
     cidade: Cidade;
 };
 

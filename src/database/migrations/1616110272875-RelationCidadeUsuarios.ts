@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class RelationCidadeUsuarios1616018740605 implements MigrationInterface {
-    name = 'RelationCidadeUsuarios1616018740605'
+export class RelationCidadeUsuarios1616110272875 implements MigrationInterface {
+    name = 'RelationCidadeUsuarios1616110272875'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query("ALTER TABLE `usuario` ADD `cidadeId` varchar(36) NULL");
