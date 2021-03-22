@@ -1,4 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Cargo } from "./Cargo";
+import { Igreja } from "./Igreja";
 
 
 
@@ -46,6 +48,15 @@ class Usuario {
 
     @CreateDateColumn()
     created_at: Date;
+
+    @OneToOne(() => Igreja, usuario => Usuario)
+    igreja: Igreja;
+
+    @ManyToOne(() => Cargo, usuarios => Usuario)
+    cargo: Cargo;
+
+    
+
 };
 
 export { Usuario };

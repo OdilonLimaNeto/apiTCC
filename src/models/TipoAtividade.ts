@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Atividade } from "./Atividade";
 
 
 @Entity('tipo_atividade')
@@ -21,6 +22,9 @@ class TipoAtividade {
 
     @CreateDateColumn()
     createdAt: Date;
+
+    @OneToMany(() => Atividade, tipoAtividade => TipoAtividade)
+    atividades: Atividade[]
 
 };
 

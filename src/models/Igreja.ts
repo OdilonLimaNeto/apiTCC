@@ -1,4 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Atividade } from "./Atividade";
+import { Usuario } from "./Usuario";
 
 @Entity('igreja')
 class Igreja {
@@ -45,6 +47,12 @@ class Igreja {
     @CreateDateColumn()
     createdAt: Date;
 
+    @OneToOne(() => Usuario, igreja => Igreja)
+    @JoinColumn()
+    usuario: Usuario;
+
+    @OneToMany(() => Atividade, igreja => Igreja)
+    atividades: Atividade[];
 
 };
 
