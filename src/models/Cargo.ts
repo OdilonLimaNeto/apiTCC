@@ -1,24 +1,19 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { NivelAcesso } from "./NivelAcesso";
-import { Usuario } from "./Usuario";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('cargo')
 class Cargo {
 
     @PrimaryGeneratedColumn('uuid')
-    readonly id: string;
+    readonly id_cargo: string;
     
     @Column()
-    name: string;
+    nome_cargo: string;
 
     @Column()
-    description: string;
+    descricao: string;
 
-    @OneToMany(() => Usuario, usuario => usuario.cargo)
-    usuarios: Usuario[];
-
-    @ManyToOne(() => NivelAcesso, nivelacesso => nivelacesso.cargos)
-    nivelAcesso: NivelAcesso;
+    @CreateDateColumn()
+    createdAt: Date;
 
 };
 

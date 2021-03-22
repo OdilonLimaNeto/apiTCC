@@ -1,30 +1,26 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Atividade } from "./Atividade";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('tipo_atividade')
 class TipoAtividade {
 
     @PrimaryGeneratedColumn('uuid')
-    readonly id: string;
+    readonly id_tipo_atividade: string;
 
     @Column()
-    name: string;
+    nome_atividade: string;
 
     @Column()
-    activityModality: string;
+    modalidade_atividade: string;
 
     @Column()
-    activityCollection: number;
+    gera_arrecadao_atividade: number;
 
     @Column()
-    description: string;
+    descricao: string;
 
     @CreateDateColumn()
     createdAt: Date;
-
-    @OneToMany(() => Atividade, atividade => atividade.tipoAtividade)
-    atividades: Atividade[];
 
 };
 

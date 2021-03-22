@@ -1,20 +1,20 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Cargo } from "./Cargo";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('nivel_acesso')
 class NivelAcesso {
 
     @PrimaryGeneratedColumn('uuid')
-    readonly id: string;
+    readonly id_nivel_acesso: string;
 
     @Column()
-    titleAcess: string;
+    titulo_acesso: string;
+
+    @Column()
+    tipo_acesso: number;
 
     @CreateDateColumn()
     created_at: Date;
 
-    @OneToMany(() => Cargo, cargo => cargo.nivelAcesso)
-    cargos: Cargo[];
 };
 
 

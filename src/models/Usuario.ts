@@ -1,50 +1,51 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Cargo } from "./Cargo";
-import { Cidade } from "./Cidade";
-import { Igreja } from "./Igreja";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+
 
 
 @Entity('usuario')
 class Usuario {
 
     @PrimaryGeneratedColumn('uuid')
-    readonly id: string;
+    readonly id_usuario: string;
 
     @Column()
-    primaryName: string;
+    primeir_nome_usuario: string;
 
     @Column()
-    secondName: string;
+    segundo_nome_usuario: string;
 
     @Column()
-    email: string;
+    email_usuario: string;
 
     @Column()
-    password: string;
+    senha_usuario: string;
 
     @Column()
-    rua: string;
+    foto_perfil_usuario: string;
 
     @Column()
-    bairro: string;
-
-    @ManyToOne(() => Cargo, cargo => cargo.usuarios)
-    cargo: Cargo;
+    rua_usuario: string;
 
     @Column()
-    homeNumber: number;
+    bairro_usuario: string;
 
     @Column()
-    complement: string;
+    numero_residencia_usuario: number;
+
+    @Column()
+    complemento_residencia_usuario: string;
+
+    @Column()
+    cidade_usuario: string;
+
+    @Column()
+    estado_usuario: string;
+    
+    @Column()
+    pais_usuario: string;
 
     @CreateDateColumn()
     created_at: Date;
-
-    @OneToOne(() => Igreja, usuario => Usuario)
-    igreja: Igreja;
-
-    @ManyToOne(() => Cidade, cidade => cidade.usuarios)
-    cidade: Cidade;
 };
 
 export { Usuario };

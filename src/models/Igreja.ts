@@ -1,47 +1,50 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Atividade } from "./Atividade";
-import { Cidade } from "./Cidade";
-import { Usuario } from "./Usuario";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('igreja')
 class Igreja {
 
     @PrimaryGeneratedColumn('uuid')
-    readonly id: string;
+    readonly id_igreja: string;
 
     @Column()
-    name: string;
+    nome_igreja: string;
 
     @Column()
-    typeChurch: number;
+    tipo_igreja: number;
 
     @Column()
-    motherChurch: number;
+    logo_igreja: string;
 
     @Column()
-    amountChurchMembers: number;
+    matriz_igreja: number;
 
     @Column()
-    streetChurch: string;
+    qtd_membro_igreja: number;
 
     @Column()
-    districtChurch: string;
+    rua_igreja: string;
 
     @Column()
-    complement: string;
+    bairro_igreja: string;
+
+    @Column()
+    numero_residencia: string;
+
+    @Column()
+    complemento: string;
+
+    @Column()
+    cidade_igreja: string;
+
+    @Column()
+    estado_igreja: string;
+    
+    @Column()
+    pais_igreja: string;
 
     @CreateDateColumn()
     createdAt: Date;
 
-    @ManyToOne(() => Cidade, cidade => cidade.igrejas)
-    cidade: Cidade;
-
-    @OneToOne(() => Usuario, igreja => Igreja)
-    @JoinColumn()
-    usuario: Usuario;
-
-    @OneToMany(() => Atividade, atividade => atividade.igreja)
-    atividades: Atividade[];
 
 };
 

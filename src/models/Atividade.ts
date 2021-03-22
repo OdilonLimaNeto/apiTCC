@@ -1,64 +1,55 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Igreja } from "./Igreja";
-import { TipoAtividade } from "./TipoAtividade";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('atividade')
 class Atividade {
 
     @PrimaryGeneratedColumn('uuid')
-    readonly id: string;
+    readonly id_atividade: string;
 
     @Column()
-    nameActivity: string;
+    nome_atividade: string;
 
     @Column()
-    dateActivity: Date;
+    data_atividade: Date;
 
     @Column({type: 'timestamp'})
-    startTimeActivity: Date;
+    hora_inicio_atividade: Date;
 
     @Column({type: 'timestamp'})
-    finishTimeActivity: Date;
+    hora_termino_atividade: Date;
 
     @Column()
-    amountVisitorsActivity: number;
+    qtd_vititantes_atividade: number;
 
     @Column()
-    amountMembersActivity: number;
+    qtd_membros_atividade: number;
 
     @Column()
-    themeActivity: string;
+    tema_atividade: string;
 
     @Column()
-    responsibleActivity: string;
+    nome_responsavel_atividade: string;
 
     @Column({type: 'float'})
-    titheActivity: number;
+    total_dizimo_atividade: number;
 
     @Column({type: 'float'})
-    ofertActivity: number;
+    total_oferta_atividade: number;
     
     @Column()
-    reconciliationNumberAcitivity: number;
+    total_reconciliacao_atividade: number;
 
     @Column()
-    numberDecisionsActivity: number;
+    total_decisoes_atividade: number;
 
     @Column()
-    activitySpeaker: string;
+    preleitor_Atividade: string;
 
     @Column()
-    observationActivity: string;
+    observacao_atividade: string;
 
     @CreateDateColumn()
     createdAt: Date;
-
-    @ManyToOne(() => TipoAtividade, atividade => atividade.atividades)
-    tipoAtividade: TipoAtividade;
-
-    @ManyToOne(() => Igreja, igreja => igreja.atividades)
-    igreja: Igreja;
-
 };
 
 export { Atividade };
