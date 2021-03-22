@@ -2,8 +2,6 @@ import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGenerated
 import { Cargo } from "./Cargo";
 import { Igreja } from "./Igreja";
 
-
-
 @Entity('usuario')
 class Usuario {
 
@@ -54,8 +52,6 @@ class Usuario {
 
     @ManyToOne(() => Cargo, usuarios => Usuario)
     cargo: Cargo;
-
-    
 
 };
 
