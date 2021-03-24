@@ -1,10 +1,19 @@
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository, getManager } from 'typeorm';
 import { Request, Response } from "express";
 import { NivelAcessoRepository } from '../repositories/NivelAcessoRepository';
 import * as Yup from 'yup';
+import { NivelAcesso } from '../models/NivelAcesso';
 
 
 class NivelAcessoController {
+    async index(request: Request, response: Response) {
+        const nivelacessoRepository = getCustomRepository(NivelAcessoRepository);
+
+        const listagem = await nivelacessoRepository.find();
+
+        return response.json(listagem);
+    };
+
     async create(request: Request, response: Response) {
         const nivelacessoRepository = getCustomRepository(NivelAcessoRepository);
 
@@ -40,14 +49,6 @@ class NivelAcessoController {
         return response.status(201).json(nivelAcesso);
     };
 
-    async listar(request: Request, response: Response) {
-        const nivelacessoRepository = getCustomRepository(NivelAcessoRepository);
-
-        const listagem = await nivelacessoRepository.find();
-
-        return response.json(listagem);
-    };
-
     async delete(request: Request, response: Response) {
         const nivelacessoRepository = getCustomRepository(NivelAcessoRepository);
         const { id } = request.params;
@@ -61,8 +62,24 @@ class NivelAcessoController {
          await nivelacessoRepository.delete(id);
         
          return response.status(201).json({message: 'Nivel de acesso deletado com sucesso'})
-
     };
-};
+
+    async listarporID(id: string) {
+
+        const nivelAcesso = await getManager().findOne(NivelAcesso, id);
+
+        return nivelAcesso;
+    };
+
+    async show(request: Request, response: Response) {
+        const { id } = request.params;
+        
+        const nivelAcesso = await getManager().findOne(NivelAcesso, id, {
+            relations: ['cargos']
+        });
+        
+        return nivelAcesso.cargos;
+    };
+}
 
 export default new NivelAcessoController();

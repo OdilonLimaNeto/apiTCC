@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Atividade } from "./Atividade";
 import { Usuario } from "./Usuario";
 
@@ -19,6 +19,13 @@ class Igreja {
 
     @Column()
     matriz_igreja: number;
+
+    @ManyToOne(() => Igreja, filial => Igreja)
+    @Column('uuid')
+    igreja: Igreja
+
+    @OneToMany(() => Igreja, igreja => Igreja)
+    filial: Igreja[]
 
     @Column()
     qtd_membro_igreja: number;
@@ -53,6 +60,11 @@ class Igreja {
 
     @OneToMany(() => Atividade, igreja => Igreja)
     atividades: Atividade[];
+
+    
+
+
+
 
 };
 
