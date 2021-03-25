@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Atividade } from "./Atividade";
-import { Usuario } from "./Usuario";
+// import { Atividade } from "./Atividade";
+// import { Usuario } from "./Usuario";
 
 @Entity('igreja')
 class Igreja {
@@ -18,7 +18,7 @@ class Igreja {
     logo_igreja: string;
 
     @Column()
-    matriz_igreja: number;
+    matriz_igreja: boolean;
 
     @ManyToOne(() => Igreja, filial => Igreja)
     @Column('uuid')
@@ -54,12 +54,12 @@ class Igreja {
     @CreateDateColumn()
     createdAt: Date;
 
-    @OneToOne(() => Usuario, igreja => Igreja)
-    @JoinColumn()
-    usuario: Usuario;
+    // @OneToOne(() => Usuario, igreja => Igreja)
+    // @JoinColumn()
+    // usuario: Usuario;
 
-    @OneToMany(() => Atividade, igreja => Igreja)
-    atividades: Atividade[];
+    // @OneToMany(() => Atividade, igreja => Igreja)
+    // atividades: Atividade[];
 
     
 

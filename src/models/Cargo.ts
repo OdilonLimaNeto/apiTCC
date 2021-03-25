@@ -5,6 +5,12 @@ import { Usuario } from "./Usuario";
 @Entity('cargo')
 class Cargo {
 
+    constructor(nome_cargo: string, descricao: string, nivelacesso: NivelAcesso) {
+        this.descricao = descricao,
+        this.nome_cargo = nome_cargo,
+        this.nivelAcesso = nivelacesso
+    }
+    
     @PrimaryGeneratedColumn('uuid')
     readonly id_cargo: string;
     
@@ -20,7 +26,7 @@ class Cargo {
     @OneToMany(() => Usuario, cargo => Cargo)
     usuarios: Usuario[]
 
-    @ManyToOne(() => NivelAcesso, cargos => Cargo)
+    @ManyToOne(() => NivelAcesso)
     nivelAcesso: NivelAcesso;
 
 };

@@ -16,7 +16,7 @@ class NivelAcesso {
     @CreateDateColumn()
     created_at: Date;
 
-    @OneToMany(() => Cargo, nivelAcesso => NivelAcesso)
+    @OneToMany(() => Cargo, cargo => cargo.nivelAcesso)
     cargos: Cargo[]
 
 };

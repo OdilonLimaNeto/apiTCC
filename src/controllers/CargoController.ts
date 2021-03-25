@@ -1,44 +1,39 @@
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository, getManager } from 'typeorm';
 import { CargoRepository } from '../repositories/CargoRepository';
-import * as Yup from 'yup';
 import { Request, Response } from 'express';
-import NivelAcessoController from './NivelAcessoController';
+import { Cargo } from '../models/Cargo';
 
 class CargoController {
-    async create(request: Request, response: Response) {
+    async index(request: Request, response: Response) {
         const cargoRepository = getCustomRepository(CargoRepository);
-        const validation = Yup.object().shape({
-            idnivelAcesso: Yup.string().required(),
-            nome_cargo: Yup.string().required(),
-            descricao: Yup.string().required(),
-        });
 
-        const {idnivelAcesso, nome_cargo, descricao} = request.body;
+        const listagem = await cargoRepository.find();
 
-        if(!(await validation.isValid(request.body))) {
-            return response.status(400).json({message: 'Preencha todos os campos'});
-        };
+        return response.json(listagem);
+    };
 
-        const cargoExiste = await cargoRepository.findOne({nome_cargo});
-        const nivelAcesso = await NivelAcessoController.listarporID(idnivelAcesso);
+    async create(cargo: Cargo) {
+        const criarCargo = await getManager().save(cargo);
+        return criarCargo;
+    };
+
+    async delete(request: Request, response: Response) {
+        const cargoRepository = getCustomRepository(CargoRepository);
+        const { id } = request.params;
+
+         const cargoExiste = await cargoRepository.findOne(id);
+
+         if (!cargoExiste) {
+             return response.status(400).json({message: 'O cargo nao existe para que seja deletado' })
+         };
+
+         await cargoRepository.delete(id);
         
-        if (cargoExiste) {
-            return response.status(400).json({ message: 'O nome do cargo ja existe'})
-        };
-        
-        if(!nivelAcesso){
-            return response.status(400).json({ message: 'O nivel de acesso nao existe'});
-        };
+         return response.status(201).json({message: 'Nivel de acesso deletado com sucesso', id})
+    };
 
-        const cargo = cargoRepository.create({
-            nivelAcesso,
-            nome_cargo,
-            descricao
-        });
-
-        await cargoRepository.save(cargo);
-        return response.status(201).json(cargo);
-    }
 };
+
+
 
 export default new CargoController();

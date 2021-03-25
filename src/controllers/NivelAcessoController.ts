@@ -71,15 +71,13 @@ class NivelAcessoController {
         return nivelAcesso;
     };
 
-    async show(request: Request, response: Response) {
-        const { id } = request.params;
-        
-        const nivelAcesso = await getManager().findOne(NivelAcesso, id, {
+    async mostrarCargosdoNiveldeAcesso(id: string) {
+        const nivelacesso = await getManager().findOne(NivelAcesso, id, {
             relations: ['cargos']
-        });
-        
-        return nivelAcesso.cargos;
-    };
+        })
+
+        return nivelacesso.cargos;
+    };  
 }
 
 export default new NivelAcessoController();
