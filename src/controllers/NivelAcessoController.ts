@@ -64,7 +64,7 @@ class NivelAcessoController {
          return response.status(201).json({message: 'Nivel de acesso deletado com sucesso'})
     };
 
-    async listarporID(id: string) {
+    async buscarIDNivelAcesso(id: string) {
 
         const nivelAcesso = await getManager().findOne(NivelAcesso, id);
 

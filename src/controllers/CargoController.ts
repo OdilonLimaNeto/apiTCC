@@ -32,6 +32,13 @@ class CargoController {
          return response.status(201).json({message: 'Nivel de acesso deletado com sucesso', id})
     };
 
+    async buscarIDCargo(id: string) {
+
+        const cargo = await getManager().findOne(Cargo, id);
+        return cargo;
+    };
+
+
 };
 
 
