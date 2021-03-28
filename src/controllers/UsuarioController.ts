@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository, getManager } from 'typeorm';
 import * as Yup from 'yup';
+import { Cargo } from '../models/Cargo';
+import { CargoRepository } from '../repositories/CargoRepository';
 import { UsuarioRepository } from '../repositories/UsuarioRepository';
+import CargoController from './CargoController';
 
 class UsuarioController {
     async create(request: Request, response: Response){
@@ -11,14 +14,16 @@ class UsuarioController {
             segundo_nome_usuario: Yup.string().required(),
             email_usuario: Yup.string().email().required(),
             senha_usuario: Yup.number().required(),
-            foto_perfil_usuario: Yup.string().required(),
-            rua_usuario: Yup.string().required(),
-            bairro_usuario: Yup.string().required(),
-            numero_residencia_usuario: Yup.number().required(),
-            complemento_residencia_usuario: Yup.string().required(),
-            cidade_usuario: Yup.string().required(),
-            estado_usuario: Yup.string().required(),
-            pais_usuario: Yup.string().required(),
+            foto_perfil_usuario: Yup.string().notRequired(),
+            rua_usuario: Yup.string().notRequired(),
+            bairro_usuario: Yup.string().notRequired(),
+            numero_residencia_usuario: Yup.number().notRequired(),
+            complemento_residencia_usuario: Yup.string().notRequired(),
+            cidade_usuario: Yup.string().notRequired(),
+            estado_usuario: Yup.string().notRequired(),
+            pais_usuario: Yup.string().notRequired(),
+            idCargo: Yup.string().required(),
+
         });
 
         const {
@@ -34,6 +39,7 @@ class UsuarioController {
             cidade_usuario,
             estado_usuario,
             pais_usuario,
+            idCargo
         } = request.body;
 
         if(!(await validation.isValid(request.body))) {
@@ -43,7 +49,13 @@ class UsuarioController {
         const usuarioExiste = await usuarioRepository.findOne({email_usuario});
 
         if(usuarioExiste) {
-            return response.status(400).json({message: 'Usuario ja existe'});
+            return response.status(400).json({message: 'Usuario já existe'});
+        };
+
+        const cargo = await CargoController.buscarIDCargo(idCargo);
+
+        if(!cargo){
+            return response.status(400).json({ message: 'O cargo não pode ser atribuido ao usuário, pois não existe!'});
         };
 
         const usuario = usuarioRepository.create({
@@ -59,6 +71,7 @@ class UsuarioController {
             cidade_usuario,
             estado_usuario,
             pais_usuario,
+            cargo
         });
 
         await usuarioRepository.save(usuario);
@@ -66,13 +79,20 @@ class UsuarioController {
         return response.status(201).json(usuario);
     };
 
-    async listar(request: Request, response: Response) {
+    async index(request: Request, response: Response) {
         const usuarioRepository = getCustomRepository(UsuarioRepository);
 
         const listagem = await usuarioRepository.find();
 
         return response.json(listagem);
-    }
+    };
+
+    async buscarIDCargo(id: string) {
+        const cargo = await getManager().findOne(Cargo, id);
+        return cargo;
+    };
 };
+
+
 
 export default new UsuarioController();

@@ -4,6 +4,7 @@ import CargoController from './controllers/CargoController';
 import NivelAcessoController from './controllers/NivelAcessoController';
 import { Cargo } from './models/Cargo';
 import { CargoRepository } from './repositories/CargoRepository';
+import UsuarioController from './controllers/UsuarioController';
 const router = Router();
 
 // NIVEL DE ACESSO
@@ -20,18 +21,26 @@ router.get('/nivelacesso/cargos/:idNivelAcesso', async (request: Request, respon
 // CARGO
 router.delete('/cargo/delete/:id', CargoController.delete);
 router.post('/cargo/create', async (request: Request, response: Response) =>{
+    const cargoRepository = getCustomRepository(CargoRepository);
    
     const {idnivelAcesso, nome_cargo, descricao} = request.body;
 
     const nivelAcesso = await NivelAcessoController.buscarIDNivelAcesso(idnivelAcesso);
+    const cargoExiste = await cargoRepository.findOne({nome_cargo});
 
-    if(nivelAcesso){
-        const cargo = new Cargo(nome_cargo, descricao, nivelAcesso);
-        const cargoSalvo = await CargoController.create(cargo);
-        return response.status(201).json(cargoSalvo);
-    }else {
+    if(!nivelAcesso){
         return response.status(400).json({ message: 'O nivel de acesso nao existe'});
     };
+
+    if(cargoExiste){ 
+        return response.status(400).json({message: 'O nome cargo já existe!'});
+    };
+
+    const cargo = new Cargo(nome_cargo, descricao, nivelAcesso);
+    const cargoSalvo = await CargoController.create(cargo);
+
+    return response.status(201).json(cargoSalvo);
+
 });
 router.get('/cargo', CargoController.index);
 router.put('/cargo/:id', async (request: Request, response: Response) => {
@@ -53,5 +62,10 @@ router.put('/cargo/:id', async (request: Request, response: Response) => {
     return response.status(201).json(cargoExiste);
 
 });
+
+
+router.get('/usuario', UsuarioController.index);
+router.post('/usuario/create', UsuarioController.create);
+
 
 export { router };
