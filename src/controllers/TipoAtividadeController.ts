@@ -1,5 +1,5 @@
 import { getManager, getCustomRepository } from 'typeorm';
-import { TipoAtividade } from "../models/TipoAtividade";
+import { TipoAtividade } from "../entities/TipoAtividade";
 import { TipoAtivdadeRepository } from '../repositories/TipoAtividadeRepository';
 
 

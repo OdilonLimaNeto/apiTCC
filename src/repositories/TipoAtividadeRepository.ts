@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { TipoAtividade } from '../models/TipoAtividade';
+import { TipoAtividade } from '../entities/TipoAtividade';
 
 
 @EntityRepository(TipoAtividade)

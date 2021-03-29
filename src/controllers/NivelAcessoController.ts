@@ -2,7 +2,7 @@ import { getCustomRepository, getManager } from 'typeorm';
 import { Request, Response } from "express";
 import { NivelAcessoRepository } from '../repositories/NivelAcessoRepository';
 import * as Yup from 'yup';
-import { NivelAcesso } from '../models/NivelAcesso';
+import { NivelAcesso } from '../entities/NivelAcesso';
 
 
 class NivelAcessoController {

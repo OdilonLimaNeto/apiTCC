@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { getCustomRepository, getManager } from 'typeorm';
 import * as Yup from 'yup';
-import { Usuario } from '../models/Usuario';
+import { Usuario } from '../entities/Usuario';
 import { UsuarioRepository } from '../repositories/UsuarioRepository';
 import CargoController from './CargoController';
 

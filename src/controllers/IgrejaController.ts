@@ -1,5 +1,5 @@
 import { getManager, getCustomRepository } from 'typeorm';
-import { Igreja } from "../models/Igreja";
+import { Igreja } from "../entities/Igreja";
 import { IgrejaRepository } from '../repositories/IgrejaRepository';
 
 

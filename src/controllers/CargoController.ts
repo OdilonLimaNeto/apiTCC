@@ -1,7 +1,7 @@
 import { getCustomRepository, getManager } from 'typeorm';
 import { CargoRepository } from '../repositories/CargoRepository';
 import { Request, Response } from 'express';
-import { Cargo } from '../models/Cargo';
+import { Cargo } from '../entities/Cargo';
 
 class CargoController {
     async index(request: Request, response: Response) {

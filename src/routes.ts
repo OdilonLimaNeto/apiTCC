@@ -2,16 +2,16 @@ import { getCustomRepository, getManager } from 'typeorm';
 import { Request, Response, Router } from 'express';
 import CargoController from './controllers/CargoController';
 import NivelAcessoController from './controllers/NivelAcessoController';
-import { Cargo } from './models/Cargo';
+import { Cargo } from './entities/Cargo';
 import { CargoRepository } from './repositories/CargoRepository';
 import UsuarioController from './controllers/UsuarioController';
 import { UsuarioRepository } from './repositories/UsuarioRepository';
 import { TipoAtivdadeRepository } from './repositories/TipoAtividadeRepository';
-import { TipoAtividade } from './models/TipoAtividade';
+import { TipoAtividade } from './entities/TipoAtividade';
 import TipoAtividadeController from './controllers/TipoAtividadeController';
 import IgrejaController from './controllers/IgrejaController';
 import { IgrejaRepository } from './repositories/IgrejaRepository';
-import { Igreja } from './models/Igreja';
+import { Igreja } from './entities/Igreja';
 const router = Router();
 
 // NIVEL DE ACESSO

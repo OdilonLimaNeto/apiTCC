@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { Igreja } from '../models/Igreja';
+import { Igreja } from '../entities/Igreja';
 
 @EntityRepository(Igreja)
 class IgrejaRepository extends Repository<Igreja> {};

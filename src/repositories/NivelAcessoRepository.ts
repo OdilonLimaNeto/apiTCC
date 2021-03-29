@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { NivelAcesso } from '../models/NivelAcesso';
+import { NivelAcesso } from '../entities/NivelAcesso';
 
 @EntityRepository(NivelAcesso)
 class NivelAcessoRepository extends Repository<NivelAcesso> {};
