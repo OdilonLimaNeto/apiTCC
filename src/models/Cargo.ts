@@ -23,7 +23,7 @@ class Cargo {
     @CreateDateColumn()
     createdAt: Date;
 
-    @OneToMany(() => Usuario, cargo => Cargo)
+    @OneToMany(() => Usuario, cargo => cargo.cargo)
     usuarios: Usuario[]
 
     @ManyToOne(() => NivelAcesso)

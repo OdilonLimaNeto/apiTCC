@@ -53,10 +53,10 @@ class Atividade {
     @CreateDateColumn()
     createdAt: Date;
 
-    @ManyToOne(() => TipoAtividade, atividades => Atividade)
+    @ManyToOne(() => TipoAtividade, atividades => atividades.atividades)
     tipoAtividade: TipoAtividade;
 
-    @ManyToOne(() => Igreja, atividades => Atividade)
+    @ManyToOne(() => Igreja, atividades => atividades.atividades)
     igreja: Igreja;
 };
 

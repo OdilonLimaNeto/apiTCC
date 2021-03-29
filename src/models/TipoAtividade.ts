@@ -4,6 +4,13 @@ import { Atividade } from "./Atividade";
 
 @Entity('tipo_atividade')
 class TipoAtividade {
+    
+    constructor(nommeAtividade: string, modalidadeAtividade: string, geraArrecadacao: number, descricao: string) {
+        this.nome_atividade = nommeAtividade,
+        this.modalidade_atividade = modalidadeAtividade,
+        this.gera_arrecadao_atividade = geraArrecadacao,
+        this.descricao = descricao
+    }
 
     @PrimaryGeneratedColumn('uuid')
     readonly id_tipo_atividade: string;
@@ -14,7 +21,7 @@ class TipoAtividade {
     @Column()
     modalidade_atividade: string;
 
-    @Column()
+    @Column({type: 'float'})
     gera_arrecadao_atividade: number;
 
     @Column()
@@ -23,7 +30,7 @@ class TipoAtividade {
     @CreateDateColumn()
     createdAt: Date;
 
-    @OneToMany(() => Atividade, tipoAtividade => TipoAtividade)
+    @OneToMany(() => Atividade, tipoAtividade => tipoAtividade.tipoAtividade)
     atividades: Atividade[]
 
 };

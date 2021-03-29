@@ -50,7 +50,7 @@ class Usuario {
     @OneToOne(() => Igreja, usuario => Usuario)
     igreja: Igreja;
 
-    @ManyToOne(() => Cargo, usuarios => Usuario)
+    @ManyToOne(() => Cargo, usuarios => usuarios.usuarios)
     cargo: Cargo;
 
 };

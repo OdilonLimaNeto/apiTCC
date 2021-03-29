@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { getCustomRepository, getManager } from 'typeorm';
 import * as Yup from 'yup';
-import { Cargo } from '../models/Cargo';
-import { CargoRepository } from '../repositories/CargoRepository';
+import { Usuario } from '../models/Usuario';
 import { UsuarioRepository } from '../repositories/UsuarioRepository';
 import CargoController from './CargoController';
 
@@ -49,7 +48,7 @@ class UsuarioController {
         const usuarioExiste = await usuarioRepository.findOne({email_usuario});
 
         if(usuarioExiste) {
-            return response.status(400).json({message: 'Usuario já existe'});
+            return response.status(400).json({message: 'Email já cadastrado'});
         };
 
         const cargo = await CargoController.buscarIDCargo(idCargo);
@@ -87,11 +86,28 @@ class UsuarioController {
         return response.json(listagem);
     };
 
-    async buscarIDCargo(id: string) {
-        const cargo = await getManager().findOne(Cargo, id);
-        return cargo;
+    async delete(request: Request, response: Response) {
+        const usuarioRepository = getCustomRepository(UsuarioRepository);
+        const { id } = request.params;
+
+         const usuarioExiste = await usuarioRepository.findOne(id);
+
+         if (!usuarioExiste) {
+             return response.status(400).json({message: 'O usuario nao existe para que seja deletado' })
+         };
+
+         await usuarioRepository.delete(id);
+        
+         return response.status(201).json({ message: 'Usuario deletado com sucesso', id })
     };
+
+    async buscarUsuario(id: string) {
+        const usuario = getManager().findOne(Usuario, id);
+
+        return usuario;
+    }
 };
+
 
 
 
