@@ -26,7 +26,7 @@ class IgrejaController {
     async buscarIgreja(id: string) {
         const igreja = await getManager().findOne(Igreja, id);
         return igreja;
-    }
+    };
 };
 
 export default new IgrejaController();

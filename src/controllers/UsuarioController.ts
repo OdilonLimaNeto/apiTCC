@@ -105,7 +105,7 @@ class UsuarioController {
         const usuario = getManager().findOne(Usuario, id);
 
         return usuario;
-    }
+    };
 };
 
 

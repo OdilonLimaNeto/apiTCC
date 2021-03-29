@@ -27,7 +27,7 @@ class TipoAtividadeController {
         const tipoatividade = await getManager().findOne(TipoAtividade, id);
 
         return tipoatividade;
-    }
+    };
 }
 
 export default new TipoAtividadeController()
