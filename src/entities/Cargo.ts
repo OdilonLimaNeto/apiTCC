@@ -26,7 +26,7 @@ class Cargo {
     @OneToMany(() => Usuario, cargo => cargo.cargo)
     usuarios: Usuario[]
 
-    @ManyToOne(() => NivelAcesso)
+    @ManyToOne(() => NivelAcesso, cargos => cargos.cargos)
     nivelAcesso: NivelAcesso;
 
 };

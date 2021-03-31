@@ -30,19 +30,19 @@ class Atividade {
     tema_atividade: string;
 
     @Column()
-    nome_responsavel_atividade: string;
+    responsavel_atividade: string;
 
     @Column({type: 'float'})
-    total_dizimo_atividade: number;
+    dizimo_atividade: number;
 
     @Column({type: 'float'})
-    total_oferta_atividade: number;
+    oferta_atividade: number;
     
     @Column()
-    total_reconciliacao_atividade: number;
+    numero_reconciliacao_atividade: number;
 
     @Column()
-    total_decisoes_atividade: number;
+    numero_decisoes_atividade: number;
 
     @Column()
     preleitor_Atividade: string;
