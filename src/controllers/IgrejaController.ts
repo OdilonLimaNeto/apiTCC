@@ -17,9 +17,7 @@ class IgrejaController {
 
     async delete(id: string) {
         const igrejaRepository = getCustomRepository(IgrejaRepository);
-
         const igreja =  await igrejaRepository.delete(id);
-        
          return igreja;
     };
 

@@ -1,4 +1,4 @@
-import { getCustomRepository, getManager } from 'typeorm';
+import { getCustomRepository } from 'typeorm';
 import { Request, Response, Router } from 'express';
 import CargoController from './controllers/CargoController';
 import NivelAcessoController from './controllers/NivelAcessoController';
@@ -83,8 +83,8 @@ router.put('/usuario/update/:id', async(request: Request, response: Response) =>
     const usuarioRepository = getCustomRepository(UsuarioRepository);
     const { id } = request.params
     const {
-        primeir_nome_usuario,
-        segundo_nome_usuario,
+        primeiro_nome_usuario,
+        ultimo_nome_usuario,
         email_usuario,
         senha_usuario,
         foto_perfil_usuario,
@@ -103,8 +103,8 @@ router.put('/usuario/update/:id', async(request: Request, response: Response) =>
         return response.status(400).json({ message: 'O usuario nao existe' });
     };
 
-    usuario.primeir_nome_usuario = primeir_nome_usuario || usuario.primeir_nome_usuario
-    usuario.segundo_nome_usuario = segundo_nome_usuario || usuario.segundo_nome_usuario
+    usuario.primeiro_nome_usuario = primeiro_nome_usuario || usuario.primeiro_nome_usuario
+    usuario.ultimo_nome_usuario = ultimo_nome_usuario || usuario.ultimo_nome_usuario
     usuario.email_usuario = email_usuario || usuario.email_usuario
     usuario.senha_usuario = senha_usuario || usuario.senha_usuario
     usuario.foto_perfil_usuario = foto_perfil_usuario || usuario.foto_perfil_usuario
@@ -234,7 +234,7 @@ router.post('/igreja/create', async (request: Request, response: Response) => {
             cidade_igreja, 
             estado_igreja, 
             pais_igreja, 
-            idUsuario
+            idUsuario,
             );
         
         await IgrejaController.create(igreja)

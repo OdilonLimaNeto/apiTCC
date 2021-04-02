@@ -17,15 +17,12 @@ class TipoAtividadeController {
 
     async delete(id: string) {
         const tipoAtividadeRepository = getCustomRepository(TipoAtivdadeRepository);
-
         const tipoatividade =  await tipoAtividadeRepository.delete(id);
-        
          return tipoatividade;
     };
 
     async buscarTipoAtivdade(id: string) {
         const tipoatividade = await getManager().findOne(TipoAtividade, id);
-
         return tipoatividade;
     };
 }

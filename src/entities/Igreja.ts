@@ -19,7 +19,6 @@ class Igreja {
         estado: string,
         pais: string,
         usuario: Usuario,
-        atividade: Atividade[]
         ) {
             this.nome_igreja = nomeIgreja,
             this.tipo_igreja = tipoIgreja,
@@ -33,9 +32,7 @@ class Igreja {
             this.cidade_igreja = cidade,
             this.estado_igreja = estado,
             this.pais_igreja = pais,
-            this.usuario = usuario,
-            this.atividades = atividade
-
+            this.usuario = usuario
     }
 
     @PrimaryGeneratedColumn('uuid')

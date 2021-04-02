@@ -4,13 +4,14 @@ import * as Yup from 'yup';
 import { Usuario } from '../entities/Usuario';
 import { UsuarioRepository } from '../repositories/UsuarioRepository';
 import CargoController from './CargoController';
+import IgrejaController from './IgrejaController';
 
 class UsuarioController {
     async create(request: Request, response: Response){
         const usuarioRepository = getCustomRepository(UsuarioRepository);
         const validation = Yup.object().shape({
-            primeir_nome_usuario: Yup.string().required(),
-            segundo_nome_usuario: Yup.string().required(),
+            primeiro_nome_usuario: Yup.string().required(),
+            ultimo_nome_usuario: Yup.string().required(),
             email_usuario: Yup.string().email().required(),
             senha_usuario: Yup.number().required(),
             foto_perfil_usuario: Yup.string().notRequired(),
@@ -22,12 +23,13 @@ class UsuarioController {
             estado_usuario: Yup.string().notRequired(),
             pais_usuario: Yup.string().notRequired(),
             idCargo: Yup.string().required(),
+            idIgreja: Yup.string().required(),
 
         });
 
         const {
-            primeir_nome_usuario,
-            segundo_nome_usuario,
+            primeiro_nome_usuario,
+            ultimo_nome_usuario,
             email_usuario,
             senha_usuario,
             foto_perfil_usuario,
@@ -38,8 +40,14 @@ class UsuarioController {
             cidade_usuario,
             estado_usuario,
             pais_usuario,
-            idCargo
+            idCargo,
+            idIgreja
         } = request.body;
+
+        
+        const cargo = await CargoController.buscarIDCargo(idCargo);
+        const igreja = await IgrejaController.buscarIgreja(idIgreja);
+
 
         if(!(await validation.isValid(request.body))) {
             return response.status(400).json({message: 'Preencha todos os campos'});
@@ -51,15 +59,17 @@ class UsuarioController {
             return response.status(400).json({message: 'Email já cadastrado'});
         };
 
-        const cargo = await CargoController.buscarIDCargo(idCargo);
-
         if(!cargo){
             return response.status(400).json({ message: 'O cargo não pode ser atribuido ao usuário, pois não existe!'});
         };
 
+        if(!igreja){
+            return response.status(400).json({ message: 'Igreja nao existe'});
+        };
+
         const usuario = usuarioRepository.create({
-            primeir_nome_usuario,
-            segundo_nome_usuario,
+            primeiro_nome_usuario,
+            ultimo_nome_usuario,
             email_usuario,
             senha_usuario,
             foto_perfil_usuario,
@@ -70,19 +80,17 @@ class UsuarioController {
             cidade_usuario,
             estado_usuario,
             pais_usuario,
-            cargo
+            cargo,
+            igreja
         });
 
         await usuarioRepository.save(usuario);
-
-        return response.status(201).json(usuario);
+        return response.status(201).json({usuario, igreja});
     };
 
     async index(request: Request, response: Response) {
         const usuarioRepository = getCustomRepository(UsuarioRepository);
-
         const listagem = await usuarioRepository.find();
-
         return response.json(listagem);
     };
 
@@ -97,13 +105,11 @@ class UsuarioController {
          };
 
          await usuarioRepository.delete(id);
-        
          return response.status(201).json({ message: 'Usuario deletado com sucesso', id })
     };
 
     async buscarUsuario(id: string) {
         const usuario = getManager().findOne(Usuario, id);
-
         return usuario;
     };
 };

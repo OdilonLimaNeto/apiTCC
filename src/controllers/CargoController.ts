@@ -38,7 +38,6 @@ class CargoController {
         return cargo;
     };
 
-
     async mostrarUsuariosDeUmCargo(id: string) {
         const cargo = await getManager().findOne(Cargo, id, {
             relations: ['usuarios']
