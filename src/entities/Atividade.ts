@@ -1,15 +1,46 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Timestamp } from "typeorm";
 import { Igreja } from "./Igreja";
 import { TipoAtividade } from "./TipoAtividade";
 
 @Entity('atividade')
 class Atividade {
 
+    constructor(
+        data: Date,
+        horarioInicio: Date,
+        horarioTermino: Date,
+        qtdVisitantes: number,
+        qtdmembros: number,
+        tema: string,
+        responsavel: string,
+        dizimo: number,
+        oferta: number,
+        numeroDecisoes: number,
+        numeroReconciliacao: number,
+        preleitor: string,
+        observacao: string,
+        tipoAtividade: TipoAtividade,
+        igreja: Igreja
+    ) {
+        this.data_atividade = data,
+        this.hora_inicio_atividade = horarioInicio,
+        this.hora_termino_atividade = horarioTermino,
+        this.qtd_vititantes_atividade = qtdVisitantes,
+        this.qtd_membros_atividade = qtdmembros,
+        this.tema_atividade = tema,
+        this.responsavel_atividade = responsavel,
+        this.dizimo_atividade = dizimo,
+        this.oferta_atividade = oferta,
+        this.numero_decisoes_atividade = numeroDecisoes,
+        this.numero_reconciliacao_atividade = numeroReconciliacao,
+        this.preleitor_Atividade = preleitor,
+        this.observacao_atividade = observacao,
+        this.tipoAtividade = tipoAtividade,
+        this.igreja = igreja
+    };
+
     @PrimaryGeneratedColumn('uuid')
     readonly id_atividade: string;
-
-    @Column()
-    nome_atividade: string;
 
     @Column()
     data_atividade: Date;
