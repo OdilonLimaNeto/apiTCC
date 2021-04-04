@@ -1,5 +1,5 @@
 import { getCustomRepository } from 'typeorm';
-import { request, Request, Response, Router } from 'express';
+import { Request, Response, Router } from 'express';
 import CargoController from './controllers/CargoController';
 import NivelAcessoController from './controllers/NivelAcessoController';
 import { Cargo } from './entities/Cargo';
@@ -13,7 +13,6 @@ import IgrejaController from './controllers/IgrejaController';
 import { IgrejaRepository } from './repositories/IgrejaRepository';
 import { Igreja } from './entities/Igreja';
 import AtividadeController from './controllers/AtividadeController';
-import { AtividadeRepository } from './repositories/AtividadeRepository';
 import { Atividade } from './entities/Atividade';
 const router = Router();
 
@@ -310,7 +309,7 @@ router.get('/atividade', async (request: Request, response: Response) => {
     const listagemAtividade = await AtividadeController.index();
     return response.status(201).json(listagemAtividade);;
 });
-router.post('/atividade/create', async (request: Request, response: Response) => {
+router.post('/atividade/create', async (request: Request, response: Response) => {  
 
     const {
         data_atividade,
@@ -341,6 +340,8 @@ router.post('/atividade/create', async (request: Request, response: Response) =>
         return response.status(400).json({message: 'A igreja informada não existe.'});
     };
 
+
+
     const atividade = new Atividade(
         data_atividade,
         hora_inicio_atividade,
@@ -360,7 +361,7 @@ router.post('/atividade/create', async (request: Request, response: Response) =>
     );
 
     await AtividadeController.create(atividade);
-    return response.status(201).json({atividade, IDtipoAtividade, IDigreja})
+    return response.status(201).json({atividade, IDtipoAtividade, IDigreja});
 });
 router.put('/atividade/update/:id', async (request: Request, response: Response) => {});
 router.delete('/atividade/delete/:id', async (request: Request, response: Response) => {

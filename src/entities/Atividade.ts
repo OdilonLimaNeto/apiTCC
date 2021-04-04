@@ -7,8 +7,8 @@ class Atividade {
 
     constructor(
         data: Date,
-        horarioInicio: Date,
-        horarioTermino: Date,
+        horarioInicio: string,
+        horarioTermino: string,
         qtdVisitantes: number,
         qtdmembros: number,
         tema: string,
@@ -45,11 +45,11 @@ class Atividade {
     @Column()
     data_atividade: Date;
 
-    @Column({type: 'timestamp'})
-    hora_inicio_atividade: Date;
+    @Column({type: 'time'})
+    hora_inicio_atividade: string;
 
-    @Column({type: 'timestamp'})
-    hora_termino_atividade: Date;
+    @Column({type: 'time'})
+    hora_termino_atividade: string;
 
     @Column()
     qtd_vititantes_atividade: number;

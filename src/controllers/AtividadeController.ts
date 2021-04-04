@@ -23,7 +23,6 @@ class AtividadeController {
     };
 
     async buscarIDAtividade(id: string) {
-
         const atividade = await getManager().findOne(Atividade, id);
         return atividade;
     };
