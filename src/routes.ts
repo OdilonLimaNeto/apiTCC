@@ -47,7 +47,7 @@ router.post('/cargo/create', async (request: Request, response: Response) =>{
     const cargo = new Cargo(nome_cargo, descricao, nivelAcesso);
     const cargoSalvo = await CargoController.create(cargo);
     
-    return response.status(201).json(cargoSalvo);
+    return response.status(201).json({cargoSalvo, nivelAcesso});
 });
 router.put('/cargo/update/:id', async (request: Request, response: Response) => {
     const cargoRepository = getCustomRepository(CargoRepository);
