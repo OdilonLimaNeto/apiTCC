@@ -1,17 +1,23 @@
-import { getCustomRepository } from 'typeorm';
 import { Request, Response, Router } from 'express';
-import CargoController from './controllers/CargoController';
-import NivelAcessoController from './controllers/NivelAcessoController';
+import { getCustomRepository } from 'typeorm';
+
 import { Cargo } from './entities/Cargo';
+import { Igreja } from './entities/Igreja';
+import { TipoAtividade } from './entities/TipoAtividade';
+import { Atividade } from './entities/Atividade';
+
 import { CargoRepository } from './repositories/CargoRepository';
-import UsuarioController from './controllers/UsuarioController';
 import { UsuarioRepository } from './repositories/UsuarioRepository';
 import { TipoAtivdadeRepository } from './repositories/TipoAtividadeRepository';
-import { TipoAtividade } from './entities/TipoAtividade';
+import { IgrejaRepository } from './repositories/IgrejaRepository';
+
+import CargoController from './controllers/CargoController';
+import NivelAcessoController from './controllers/NivelAcessoController';
+import UsuarioController from './controllers/UsuarioController';
 import TipoAtividadeController from './controllers/TipoAtividadeController';
 import IgrejaController from './controllers/IgrejaController';
-import { IgrejaRepository } from './repositories/IgrejaRepository';
-import { Igreja } from './entities/Igreja';
+import AtividadeController from './controllers/AtividadeController';
+
 const router = Router();
 
 // NIVEL DE ACESSO
@@ -202,7 +208,9 @@ router.post('/igreja/create', async (request: Request, response: Response) => {
             rua_igreja,
             bairro_igreja,
             numero_residencia,
-            complemento,
+            complemento_residencia_igreja,
+            cep_igreja,
+            cnpj_igreja,
             cidade_igreja,
             estado_igreja,
             pais_igreja,
@@ -230,11 +238,13 @@ router.post('/igreja/create', async (request: Request, response: Response) => {
             rua_igreja, 
             bairro_igreja, 
             numero_residencia, 
-            complemento, 
+            complemento_residencia_igreja,
+            cep_igreja,
+            cnpj_igreja, 
             cidade_igreja, 
             estado_igreja, 
-            pais_igreja, 
-            idUsuario,
+            pais_igreja,
+            idUsuario
             );
         
         await IgrejaController.create(igreja)
@@ -251,13 +261,15 @@ router.put('/igreja/update/:id', async (request: Request, response: Response) =>
         logo_igreja,
         matriz_igreja,
         qtd_membro_igreja,
+        cnpj_igreja,
         rua_igreja,
         bairro_igreja,
         numero_residencia,
-        complemento,
+        complemento_residencia_igreja,
         cidade_igreja,
         estado_igreja,
-        pais_igreja
+        pais_igreja,
+        cep_igreja
     } = request.body;
 
     const igreja = await IgrejaController.buscarIgreja(id);
@@ -274,10 +286,12 @@ router.put('/igreja/update/:id', async (request: Request, response: Response) =>
     igreja.rua_igreja = rua_igreja || igreja.rua_igreja
     igreja.bairro_igreja = bairro_igreja || igreja.bairro_igreja
     igreja.numero_residencia = numero_residencia || igreja.numero_residencia
-    igreja.complemento = complemento || igreja.complemento
+    igreja.complemento_residencia_igreja = complemento_residencia_igreja || igreja.complemento_residencia_igreja
     igreja.cidade_igreja = cidade_igreja || igreja.cidade_igreja
     igreja.estado_igreja = estado_igreja || igreja.estado_igreja
-    igreja.pais_igreja = pais_igreja || igreja.pais_igreja
+    igreja.pais_igreja = pais_igreja || igreja.pais_igreja,
+    igreja.cnpj_igreja = cnpj_igreja || igreja.cnpj_igreja
+    igreja.cep_igreja = cep_igreja || igreja.cep_igreja
 
     await igrejaRepository.save(igreja);
     return response.status(201).json(igreja);
@@ -292,6 +306,78 @@ router.delete('/igreja/delete/:id', async (request: Request, response: Response)
 
     await IgrejaController.delete(id);
     return response.status(201).json({ message: 'Igreja deletada com sucesso', id })
+});
+
+// ATIVIDADE
+router.get('/atividade', async (request: Request, response: Response) => {
+    const listagemAtividade = await AtividadeController.index();
+    return response.status(201).json(listagemAtividade);;
+});
+router.post('/atividade/create', async (request: Request, response: Response) => {  
+
+    const {
+        data_atividade,
+        hora_inicio_atividade,
+        hora_termino_atividade,
+        qtd_vititantes_atividade,
+        qtd_membros_atividade,
+        tema_atividade,
+        responsavel_atividade,
+        dizimo_atividade,
+        oferta_atividade,
+        numero_conciliacao_atividade,
+        numero_decisoes_atividade,
+        preleitor_atividade,
+        observacao_atividade,
+        IDtipoAtividade,
+        IDigreja
+    } = request.body;
+
+    const tipoAtividadeExiste = await TipoAtividadeController.buscarTipoAtivdade(IDtipoAtividade);
+    const igrejaExiste = await IgrejaController.buscarIgreja(IDigreja);
+
+    if(!tipoAtividadeExiste) {
+        return response.status(400).json({message: 'O tipo de atividade informado não existe.'});
+    };
+
+    if(!igrejaExiste) {
+        return response.status(400).json({message: 'A igreja informada não existe.'});
+    };
+
+
+
+    const atividade = new Atividade(
+        data_atividade,
+        hora_inicio_atividade,
+        hora_termino_atividade,
+        qtd_vititantes_atividade,
+        qtd_membros_atividade,
+        tema_atividade,
+        responsavel_atividade,
+        dizimo_atividade,
+        oferta_atividade,
+        numero_conciliacao_atividade,
+        numero_decisoes_atividade,
+        preleitor_atividade,
+        observacao_atividade,
+        IDtipoAtividade,
+        IDigreja,
+    );
+
+    await AtividadeController.create(atividade);
+    return response.status(201).json({atividade, IDtipoAtividade, IDigreja});
+});
+router.put('/atividade/update/:id', async (request: Request, response: Response) => {});
+router.delete('/atividade/delete/:id', async (request: Request, response: Response) => {
+    const { id } = request.params;
+    const atividade = await AtividadeController.buscarIDAtividade(id);
+
+    if (!atividade) {
+        return response.status(400).json({message: 'A Atividade não existe para que seja deletada' })
+    };
+
+    await AtividadeController.delete(id);
+    return response.status(201).json({ message: 'Atividade deletada com sucesso', id })
 });
 
 export { router };

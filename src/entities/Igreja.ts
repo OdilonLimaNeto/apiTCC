@@ -18,6 +18,8 @@ class Igreja {
         cidade: string,
         estado: string,
         pais: string,
+        cnpj: string,
+        cep: string,
         usuario: Usuario,
         ) {
             this.nome_igreja = nomeIgreja,
@@ -32,6 +34,8 @@ class Igreja {
             this.cidade_igreja = cidade,
             this.estado_igreja = estado,
             this.pais_igreja = pais,
+            this.cep_igreja = cep,
+            this.cnpj_igreja = cnpj,
             this.usuario = usuario
     }
 

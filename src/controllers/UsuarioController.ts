@@ -4,7 +4,6 @@ import * as Yup from 'yup';
 import { Usuario } from '../entities/Usuario';
 import { UsuarioRepository } from '../repositories/UsuarioRepository';
 import CargoController from './CargoController';
-import IgrejaController from './IgrejaController';
 
 class UsuarioController {
     async create(request: Request, response: Response){
@@ -23,7 +22,6 @@ class UsuarioController {
             estado_usuario: Yup.string().notRequired(),
             pais_usuario: Yup.string().notRequired(),
             idCargo: Yup.string().required(),
-            idIgreja: Yup.string().required(),
 
         });
 
@@ -41,13 +39,10 @@ class UsuarioController {
             estado_usuario,
             pais_usuario,
             idCargo,
-            idIgreja
         } = request.body;
 
         
         const cargo = await CargoController.buscarIDCargo(idCargo);
-        const igreja = await IgrejaController.buscarIgreja(idIgreja);
-
 
         if(!(await validation.isValid(request.body))) {
             return response.status(400).json({message: 'Preencha todos os campos'});
@@ -61,10 +56,6 @@ class UsuarioController {
 
         if(!cargo){
             return response.status(400).json({ message: 'O cargo não pode ser atribuido ao usuário, pois não existe!'});
-        };
-
-        if(!igreja){
-            return response.status(400).json({ message: 'Igreja nao existe'});
         };
 
         const usuario = usuarioRepository.create({
@@ -81,11 +72,10 @@ class UsuarioController {
             estado_usuario,
             pais_usuario,
             cargo,
-            igreja
         });
 
         await usuarioRepository.save(usuario);
-        return response.status(201).json({usuario, igreja});
+        return response.status(201).json({usuario});
     };
 
     async index(request: Request, response: Response) {
