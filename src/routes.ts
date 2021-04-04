@@ -1,19 +1,23 @@
-import { getCustomRepository } from 'typeorm';
 import { Request, Response, Router } from 'express';
-import CargoController from './controllers/CargoController';
-import NivelAcessoController from './controllers/NivelAcessoController';
+import { getCustomRepository } from 'typeorm';
+
 import { Cargo } from './entities/Cargo';
+import { Igreja } from './entities/Igreja';
+import { TipoAtividade } from './entities/TipoAtividade';
+import { Atividade } from './entities/Atividade';
+
 import { CargoRepository } from './repositories/CargoRepository';
-import UsuarioController from './controllers/UsuarioController';
 import { UsuarioRepository } from './repositories/UsuarioRepository';
 import { TipoAtivdadeRepository } from './repositories/TipoAtividadeRepository';
-import { TipoAtividade } from './entities/TipoAtividade';
+import { IgrejaRepository } from './repositories/IgrejaRepository';
+
+import CargoController from './controllers/CargoController';
+import NivelAcessoController from './controllers/NivelAcessoController';
+import UsuarioController from './controllers/UsuarioController';
 import TipoAtividadeController from './controllers/TipoAtividadeController';
 import IgrejaController from './controllers/IgrejaController';
-import { IgrejaRepository } from './repositories/IgrejaRepository';
-import { Igreja } from './entities/Igreja';
 import AtividadeController from './controllers/AtividadeController';
-import { Atividade } from './entities/Atividade';
+
 const router = Router();
 
 // NIVEL DE ACESSO
