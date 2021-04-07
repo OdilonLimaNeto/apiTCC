@@ -9,6 +9,11 @@
     "start": "node ./dist/src/server.js"
   },
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "@types/uuid": "^8.3.0",
+    "bcrypt": "^5.0.1",
+>>>>>>> 14e940a69d11fe1cf7ca1cc65543c2820178c08b
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -19,6 +24,7 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.10",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.11",

@@ -5,25 +5,11 @@ import { Usuario } from '../entities/Usuario';
 import { UsuarioRepository } from '../repositories/UsuarioRepository';
 import CargoController from './CargoController';
 
+import { hash } from 'bcrypt'
+
 class UsuarioController {
     async create(request: Request, response: Response){
         const usuarioRepository = getCustomRepository(UsuarioRepository);
-        const validation = Yup.object().shape({
-            primeiro_nome_usuario: Yup.string().required(),
-            ultimo_nome_usuario: Yup.string().required(),
-            email_usuario: Yup.string().email().required(),
-            senha_usuario: Yup.number().required(),
-            foto_perfil_usuario: Yup.string().notRequired(),
-            rua_usuario: Yup.string().notRequired(),
-            bairro_usuario: Yup.string().notRequired(),
-            numero_residencia_usuario: Yup.number().notRequired(),
-            complemento_residencia_usuario: Yup.string().notRequired(),
-            cidade_usuario: Yup.string().notRequired(),
-            estado_usuario: Yup.string().notRequired(),
-            pais_usuario: Yup.string().notRequired(),
-            idCargo: Yup.string().required(),
-
-        });
 
         const {
             primeiro_nome_usuario,
@@ -44,9 +30,6 @@ class UsuarioController {
         
         const cargo = await CargoController.buscarIDCargo(idCargo);
 
-        if(!(await validation.isValid(request.body))) {
-            return response.status(400).json({message: 'Preencha todos os campos'});
-        };
 
         const usuarioExiste = await usuarioRepository.findOne({email_usuario});
 
@@ -58,11 +41,13 @@ class UsuarioController {
             return response.status(400).json({ message: 'O cargo não pode ser atribuido ao usuário, pois não existe!'});
         };
 
+        const senhaHash = await hash(senha_usuario, 8);
+
         const usuario = usuarioRepository.create({
             primeiro_nome_usuario,
             ultimo_nome_usuario,
             email_usuario,
-            senha_usuario,
+            senha_usuario: senhaHash,
             foto_perfil_usuario,
             rua_usuario,
             bairro_usuario,
