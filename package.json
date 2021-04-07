@@ -11,7 +11,6 @@
   "dependencies": {
 <<<<<<< HEAD
 =======
-    "@types/uuid": "^8.3.0",
     "bcrypt": "^5.0.1",
 >>>>>>> 14e940a69d11fe1cf7ca1cc65543c2820178c08b
     "cors": "^2.8.5",
