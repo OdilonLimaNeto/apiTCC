@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import { getCustomRepository, getManager } from 'typeorm';
 import { Atividade } from '../entities/Atividade';
 import { AtividadeRepository } from '../repositories/AtividadeRepository';

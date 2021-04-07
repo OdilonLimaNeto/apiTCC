@@ -380,4 +380,5 @@ router.delete('/atividade/delete/:id', async (request: Request, response: Respon
     return response.status(201).json({ message: 'Atividade deletada com sucesso', id })
 });
 
+
 export { router };
