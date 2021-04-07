@@ -9,10 +9,7 @@
     "start": "node ./dist/src/server.js"
   },
   "dependencies": {
-<<<<<<< HEAD
-=======
     "bcrypt": "^5.0.1",
->>>>>>> 14e940a69d11fe1cf7ca1cc65543c2820178c08b
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
