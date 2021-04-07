@@ -3,7 +3,7 @@ import { router } from './routes';
 import cors from 'cors';
 import './database';
 
-const PORT = 3333;
+const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 
 const app = express();
