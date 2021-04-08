@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -32,35 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const Yup = __importStar(require("yup"));
 const Usuario_1 = require("../entities/Usuario");
 const UsuarioRepository_1 = require("../repositories/UsuarioRepository");
 const CargoController_1 = __importDefault(require("./CargoController"));
+const bcrypt_1 = require("bcrypt");
 class UsuarioController {
     create(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const usuarioRepository = typeorm_1.getCustomRepository(UsuarioRepository_1.UsuarioRepository);
-            const validation = Yup.object().shape({
-                primeiro_nome_usuario: Yup.string().required(),
-                ultimo_nome_usuario: Yup.string().required(),
-                email_usuario: Yup.string().email().required(),
-                senha_usuario: Yup.number().required(),
-                foto_perfil_usuario: Yup.string().notRequired(),
-                rua_usuario: Yup.string().notRequired(),
-                bairro_usuario: Yup.string().notRequired(),
-                numero_residencia_usuario: Yup.number().notRequired(),
-                complemento_residencia_usuario: Yup.string().notRequired(),
-                cidade_usuario: Yup.string().notRequired(),
-                estado_usuario: Yup.string().notRequired(),
-                pais_usuario: Yup.string().notRequired(),
-                idCargo: Yup.string().required(),
-            });
             const { primeiro_nome_usuario, ultimo_nome_usuario, email_usuario, senha_usuario, foto_perfil_usuario, rua_usuario, bairro_usuario, numero_residencia_usuario, complemento_residencia_usuario, cidade_usuario, estado_usuario, pais_usuario, idCargo, } = request.body;
             const cargo = yield CargoController_1.default.buscarIDCargo(idCargo);
-            if (!(yield validation.isValid(request.body))) {
-                return response.status(400).json({ message: 'Preencha todos os campos' });
-            }
-            ;
             const usuarioExiste = yield usuarioRepository.findOne({ email_usuario });
             if (usuarioExiste) {
                 return response.status(400).json({ message: 'Email já cadastrado' });
@@ -70,11 +32,12 @@ class UsuarioController {
                 return response.status(400).json({ message: 'O cargo não pode ser atribuido ao usuário, pois não existe!' });
             }
             ;
+            const senhaHash = yield bcrypt_1.hash(senha_usuario, 8);
             const usuario = usuarioRepository.create({
                 primeiro_nome_usuario,
                 ultimo_nome_usuario,
                 email_usuario,
-                senha_usuario,
+                senha_usuario: senhaHash,
                 foto_perfil_usuario,
                 rua_usuario,
                 bairro_usuario,

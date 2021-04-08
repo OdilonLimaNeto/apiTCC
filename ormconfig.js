@@ -8,9 +8,9 @@ module.exports = {
     "username": process.env.DB_USERNAME,
     "password": process.env.DB_PASSWORD,
     "database": process.env.DB_NAME,
-    "entities": ["./dist/src/entities/*.js"],
-    "migrations": ["./dist/src/database/migrations/**.js"],
+    "entities": ["./src/entities/*.ts"],
+    "migrations": ["./src/database/migrations/**.ts"],
     "cli": {
-        "migrationsDir": "./dist/src/database/migrations"
+        "migrationsDir": "./src/database/migrations"
     }
 };

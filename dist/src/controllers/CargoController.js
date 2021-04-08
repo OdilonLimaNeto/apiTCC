@@ -13,11 +13,19 @@ const typeorm_1 = require("typeorm");
 const CargoRepository_1 = require("../repositories/CargoRepository");
 const Cargo_1 = require("../entities/Cargo");
 class CargoController {
-    index(request, response) {
+    index() {
         return __awaiter(this, void 0, void 0, function* () {
-            const cargoRepository = typeorm_1.getCustomRepository(CargoRepository_1.CargoRepository);
-            const listagem = yield cargoRepository.find();
-            return response.json(listagem);
+            const cargos = yield typeorm_1.getManager().find(Cargo_1.Cargo, {
+                select: [
+                    'id_cargo',
+                    'nome_cargo',
+                    'descricao',
+                    'createdAt',
+                    'nivelAcesso'
+                ],
+                relations: ['nivelAcesso']
+            });
+            return cargos;
         });
     }
     ;

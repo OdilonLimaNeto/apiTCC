@@ -41,7 +41,10 @@ router.get('/nivelacesso/cargos/:idNivelAcesso', (request, response) => __awaite
     return response.json(cargos);
 }));
 // CARGO
-router.get('/cargo', CargoController_1.default.index);
+router.get('/cargo', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    const cargos = yield CargoController_1.default.index();
+    return response.json(cargos);
+}));
 router.delete('/cargo/delete/:id', CargoController_1.default.delete);
 router.post('/cargo/create', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     const cargoRepository = typeorm_1.getCustomRepository(CargoRepository_1.CargoRepository);
