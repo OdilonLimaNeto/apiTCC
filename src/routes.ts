@@ -32,7 +32,11 @@ router.get('/nivelacesso/cargos/:idNivelAcesso', async (request: Request, respon
 });
 
 // CARGO
-router.get('/cargo', CargoController.index);
+router.get('/cargo', async (request: Request, response: Response) => {
+    const cargos = await CargoController.index();
+    return response.json(cargos);
+});
+
 router.delete('/cargo/delete/:id', CargoController.delete);
 router.post('/cargo/create', async (request: Request, response: Response) =>{
     const cargoRepository = getCustomRepository(CargoRepository);
@@ -53,7 +57,7 @@ router.post('/cargo/create', async (request: Request, response: Response) =>{
     const cargo = new Cargo(nome_cargo, descricao, nivelAcesso);
     const cargoSalvo = await CargoController.create(cargo);
     
-    return response.status(201).json({cargoSalvo, nivelAcesso});
+    return response.status(201).json(cargoSalvo);
 });
 router.put('/cargo/update/:id', async (request: Request, response: Response) => {
     const cargoRepository = getCustomRepository(CargoRepository);

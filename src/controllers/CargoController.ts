@@ -4,12 +4,19 @@ import { Request, Response } from 'express';
 import { Cargo } from '../entities/Cargo';
 
 class CargoController {
-    async index(request: Request, response: Response) {
-        const cargoRepository = getCustomRepository(CargoRepository);
-
-        const listagem = await cargoRepository.find();
-
-        return response.json(listagem);
+    async index() {
+        const cargos = await getManager().find(Cargo, {
+            select: [
+                'id_cargo',
+                'nome_cargo',
+                'descricao',
+                'createdAt',
+                'nivelAcesso'
+            ],
+            
+            relations: ['nivelAcesso']
+        });
+        return cargos;
     };
 
     async create(cargo: Cargo) {
@@ -44,7 +51,8 @@ class CargoController {
         })
 
         return cargo.usuarios;
-    };  
+    };
+
 };
 
 
