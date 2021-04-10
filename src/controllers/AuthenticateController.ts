@@ -2,16 +2,16 @@ import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { AuthenticateRepository } from '../repositories/AthenticateRepository';
+import { UsuarioRepository } from '../repositories/UsuarioRepository';
 
 
 class AuthenticateController {
     async authenticate (request: Request, response: Response) {
-        const authenticateRepository = getCustomRepository(AuthenticateRepository);
+        const usuarioRepository = getCustomRepository(UsuarioRepository);
 
         const { email_usuario, senha_usuario } = request.body;
 
-        const usuarioExiste = await authenticateRepository.findOne({ where: { email_usuario } });
+        const usuarioExiste = await usuarioRepository.findOne({ where: { email_usuario }});
 
         if(!usuarioExiste) {
             return response.status(400).json({message: 'O email informado não existe'});
@@ -23,7 +23,7 @@ class AuthenticateController {
             return response.status(400).json({message: 'A senha informada está errada'});
         }
 
-        const token = jwt.sign({idUsuario: usuarioExiste.id_usuario}, process.env.SECRET_TOKEN);
+        const token = jwt.sign({idUsuario: usuarioExiste.id_usuario}, process.env.SECRET_TOKEN as string);
 
         const { id_usuario } = usuarioExiste
 

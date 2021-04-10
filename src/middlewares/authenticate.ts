@@ -17,7 +17,7 @@ export default function authenticateMiddleWare(request: Request, response: Respo
     const token = authorization.replace('Bearer', '').trim();
 
     try {
-        const informations = jwt.verify(token, process.env.SECRET_TOKEN);
+        const informations = jwt.verify(token, process.env.SECRET_TOKEN as string);
 
         const { idUsuario } = informations as Itoken;
 
