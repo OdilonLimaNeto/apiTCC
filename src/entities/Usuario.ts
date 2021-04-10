@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import bcrypt from 'bcrypt';
 import { Cargo } from "./Cargo";
 import { Igreja } from "./Igreja";
 
@@ -58,6 +59,12 @@ class Usuario {
 
     @ManyToOne(() => Cargo, usuarios => usuarios.usuarios)
     cargo: Cargo;
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    hashPassword() {
+        this.senha_usuario = bcrypt.hashSync(this.senha_usuario, 8)
+    }
 
 };
 

@@ -8,12 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Usuario = void 0;
 const typeorm_1 = require("typeorm");
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const Cargo_1 = require("./Cargo");
 const Igreja_1 = require("./Igreja");
 let Usuario = class Usuario {
+    hashPassword() {
+        this.senha_usuario = bcrypt_1.default.hashSync(this.senha_usuario, 8);
+    }
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn('uuid'),
@@ -87,6 +94,13 @@ __decorate([
     typeorm_1.ManyToOne(() => Cargo_1.Cargo, usuarios => usuarios.usuarios),
     __metadata("design:type", Cargo_1.Cargo)
 ], Usuario.prototype, "cargo", void 0);
+__decorate([
+    typeorm_1.BeforeInsert(),
+    typeorm_1.BeforeUpdate(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Usuario.prototype, "hashPassword", null);
 Usuario = __decorate([
     typeorm_1.Entity('usuario')
 ], Usuario);

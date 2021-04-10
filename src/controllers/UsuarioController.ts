@@ -41,13 +41,11 @@ class UsuarioController {
             return response.status(400).json({ message: 'O cargo não pode ser atribuido ao usuário, pois não existe!'});
         };
 
-        const senhaHash = await hash(senha_usuario, 8);
-
         const usuario = usuarioRepository.create({
             primeiro_nome_usuario,
             ultimo_nome_usuario,
             email_usuario,
-            senha_usuario: senhaHash,
+            senha_usuario,
             foto_perfil_usuario,
             rua_usuario,
             bairro_usuario,

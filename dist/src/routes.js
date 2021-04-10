@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 const express_1 = require("express");
 const typeorm_1 = require("typeorm");
+const authenticate_1 = __importDefault(require("./middlewares/authenticate"));
 const Cargo_1 = require("./entities/Cargo");
 const Igreja_1 = require("./entities/Igreja");
 const TipoAtividade_1 = require("./entities/TipoAtividade");
@@ -29,6 +30,7 @@ const UsuarioController_1 = __importDefault(require("./controllers/UsuarioContro
 const TipoAtividadeController_1 = __importDefault(require("./controllers/TipoAtividadeController"));
 const IgrejaController_1 = __importDefault(require("./controllers/IgrejaController"));
 const AtividadeController_1 = __importDefault(require("./controllers/AtividadeController"));
+const AuthenticateController_1 = __importDefault(require("./controllers/AuthenticateController"));
 const router = express_1.Router();
 exports.router = router;
 // NIVEL DE ACESSO
@@ -154,7 +156,7 @@ router.put('/tipoatividade/update/:id', (request, response) => __awaiter(void 0,
     return response.status(201).json(tipoAtividade);
 }));
 // IGREJA
-router.get('/igreja', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/igreja', authenticate_1.default, (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     const listagemIgreja = yield IgrejaController_1.default.index();
     return response.status(201).json(listagemIgreja);
 }));
@@ -244,3 +246,5 @@ router.delete('/atividade/delete/:id', (request, response) => __awaiter(void 0, 
     yield AtividadeController_1.default.delete(id);
     return response.status(201).json({ message: 'Atividade deletada com sucesso', id });
 }));
+//AUTENTICAÇÃO
+router.post('/usuario/authenticate', AuthenticateController_1.default.authenticate);

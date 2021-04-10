@@ -16,7 +16,6 @@ const typeorm_1 = require("typeorm");
 const Usuario_1 = require("../entities/Usuario");
 const UsuarioRepository_1 = require("../repositories/UsuarioRepository");
 const CargoController_1 = __importDefault(require("./CargoController"));
-const bcrypt_1 = require("bcrypt");
 class UsuarioController {
     create(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -32,12 +31,11 @@ class UsuarioController {
                 return response.status(400).json({ message: 'O cargo não pode ser atribuido ao usuário, pois não existe!' });
             }
             ;
-            const senhaHash = yield bcrypt_1.hash(senha_usuario, 8);
             const usuario = usuarioRepository.create({
                 primeiro_nome_usuario,
                 ultimo_nome_usuario,
                 email_usuario,
-                senha_usuario: senhaHash,
+                senha_usuario,
                 foto_perfil_usuario,
                 rua_usuario,
                 bairro_usuario,
