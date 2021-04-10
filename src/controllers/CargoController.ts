@@ -2,6 +2,7 @@ import { getCustomRepository, getManager } from 'typeorm';
 import { CargoRepository } from '../repositories/CargoRepository';
 import { Request, Response } from 'express';
 import { Cargo } from '../entities/Cargo';
+import { NivelAcesso } from '../entities/NivelAcesso';
 
 class CargoController {
     async index() {
@@ -15,6 +16,19 @@ class CargoController {
             ],
             
             relations: ['nivelAcesso']
+        });
+        return cargos;
+    };
+
+    async mostrarCargo(nivelAcesso: NivelAcesso) {
+        const cargos = await getManager().findOne(NivelAcesso, nivelAcesso, {
+            select: [
+                'id_nivel_acesso',
+                'titulo_acesso',
+                'tipo_acesso',
+                'created_at',
+            ],
+            
         });
         return cargos;
     };

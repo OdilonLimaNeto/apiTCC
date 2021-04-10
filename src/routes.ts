@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { json, Request, Response, Router } from 'express';
 import { getCustomRepository } from 'typeorm';
 
 import AuthenticateMiddleWare from './middlewares/authenticate';
@@ -20,6 +20,7 @@ import TipoAtividadeController from './controllers/TipoAtividadeController';
 import IgrejaController from './controllers/IgrejaController';
 import AtividadeController from './controllers/AtividadeController';
 import AuthenticateController from './controllers/AuthenticateController';
+import { NivelAcessoRepository } from './repositories/NivelAcessoRepository';
 
 
 const router = Router();
@@ -87,6 +88,22 @@ router.get('/cargo/usuarios/:idCargo', async (request: Request, response: Respon
 
     const cargos = await CargoController.mostrarUsuariosDeUmCargo(idCargo);
     return response.json(cargos)
+});
+router.patch('/cargo/:idCargo', async (request: Request, response: Response) => {
+    const cargoRepository = getCustomRepository(CargoRepository);
+    const { idCargo } = request.params;
+
+    const cargo = await cargoRepository.findOne({ where: { id_cargo: idCargo }});
+
+    if(!cargo){
+        return response.status(400).json({ message: 'Cargo não existe'})
+    }
+    const { nivelAcesso } = cargo;
+
+    const nivelAcessoCargo = await CargoController.mostrarCargo(nivelAcesso);
+
+    
+    return response.status(201).json({cargo, nivelAcessoCargo});
 });
 
 // USUARIO
