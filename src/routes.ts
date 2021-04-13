@@ -1,7 +1,6 @@
 import { json, Request, Response, Router } from 'express';
 import { getCustomRepository } from 'typeorm';
 
-import AuthenticateMiddleWare from './middlewares/authenticate';
 
 import { Cargo } from './entities/Cargo';
 import { Igreja } from './entities/Igreja';
@@ -19,8 +18,6 @@ import UsuarioController from './controllers/UsuarioController';
 import TipoAtividadeController from './controllers/TipoAtividadeController';
 import IgrejaController from './controllers/IgrejaController';
 import AtividadeController from './controllers/AtividadeController';
-import AuthenticateController from './controllers/AuthenticateController';
-import { NivelAcessoRepository } from './repositories/NivelAcessoRepository';
 
 
 const router = Router();
@@ -217,7 +214,7 @@ router.put('/tipoatividade/update/:id', async (request: Request, response: Respo
 });
 
 // IGREJA
-router.get('/igreja', AuthenticateMiddleWare, async (request: Request, response: Response) => {
+router.get('/igreja', async (request: Request, response: Response) => {
     const listagemIgreja = await IgrejaController.index();
     return response.status(201).json(listagemIgreja);
 });
@@ -407,7 +404,6 @@ router.delete('/atividade/delete/:id', async (request: Request, response: Respon
 
 //AUTENTICAÇÃO
 
-router.post('/usuario/authenticate', AuthenticateController.authenticate);
 
 
 export { router };
